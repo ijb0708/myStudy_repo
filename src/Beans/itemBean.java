@@ -9,12 +9,11 @@ public class itemBean {
 	private String name;
 	private String thum_pic;
 	private String dtail_pic;
-	private int price;
-	private int remain;
-	private Timestamp start_time;
-	private Timestamp end_time;
+	private String price;
+	private String remain;
+	private String start_time;
+	private String end_time;
 	private String dscript;
-	
 	public String getItem_code() {
 		return item_code;
 	}
@@ -39,28 +38,28 @@ public class itemBean {
 	public void setDtail_pic(String dtail_pic) {
 		this.dtail_pic = dtail_pic;
 	}
-	public int getPrice() {
+	public String getPrice() {
 		return price;
 	}
-	public void setPrice(int price) {
+	public void setPrice(String price) {
 		this.price = price;
 	}
-	public int getRemain() {
+	public String getRemain() {
 		return remain;
 	}
-	public void setRemain(int remain) {
+	public void setRemain(String remain) {
 		this.remain = remain;
 	}
-	public Timestamp getStart_time() {
+	public String getStart_time() {
 		return start_time;
 	}
-	public void setStart_time(Timestamp start_time) {
+	public void setStart_time(String start_time) {
 		this.start_time = start_time;
 	}
-	public Timestamp getEnd_time() {
+	public String getEnd_time() {
 		return end_time;
 	}
-	public void setEnd_time(Timestamp end_time) {
+	public void setEnd_time(String end_time) {
 		this.end_time = end_time;
 	}
 	public String getDscript() {

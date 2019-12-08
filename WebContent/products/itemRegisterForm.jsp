@@ -20,10 +20,11 @@
       <li><label for="remain">수량</label>
           <input id="remain" name="remain" type="text" 
            size="10" placeholder="수량" maxlength="5">개
+
       <li><label for="image">책 이미지</label>
-          <input id="image" name="image" enctype="multipart/form-data" type="file">  
+          <input id="image" name="dtail_pic" enctype="multipart/form-data" type="file">  
       <li><label for="content">내용</label>
-          <textarea id="content" name="content" rows="13" cols="50"></textarea>
+          <textarea id="content" name="dscript" rows="13" cols="50"></textarea>
           <input type="submit" id="registBook" value="책등록">
    </ul>
 </div>
