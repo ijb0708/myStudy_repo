@@ -15,11 +15,11 @@
 </head>
 <body>
 	<c:choose>
-		<c:when test="${isAdmin == true}">
-			<jsp:include page="navs/memberNav.jsp" />
-		</c:when>
-		<c:when test="${isAdmin == false}">
+		<c:when test="${isMan == true}">
 			<jsp:include page="navs/adminNav.jsp" />
+		</c:when>
+		<c:when test="${isMan == false}">
+			<jsp:include page="navs/memberNav.jsp" />
 		</c:when>
 		<c:otherwise>
 			<jsp:include page="navs/noneNav.jsp" />
