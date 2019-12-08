@@ -39,18 +39,16 @@ public class MngrDBBean {
 		PreparedStatement pstmt = null;
 
 		try {
+			
 			conn = getConnection();
-			String sql = "insert into item(item_code,name,thum_pic,dtail_pic,price,remain,start_time,end_time,dscript) values(NO_SEQ.NEXTVAL,?,?,?,?,?,?,?,?)";
+			String sql = "insert into item(item_code,title,price,remain,image,content) values(NO_SEQ.NEXTVAL,?,?,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setString(1, item.getName());
-			pstmt.setString(2, item.getThum_pic());
-			pstmt.setString(3, item.getDtail_pic());
-			pstmt.setInt(4, item.getPrice());
-			pstmt.setInt(5, item.getRemain());
-			pstmt.setTimestamp(6, item.getStart_time());
-			pstmt.setTimestamp(7, item.getEnd_time());
-			pstmt.setString(8, item.getDscript());
+			pstmt.setString(2, item.getPrice());
+			pstmt.setString(3, item.getRemain());
+			pstmt.setString(4, item.getDtail_pic());
+			pstmt.setString(5, item.getDscript());
 
 			pstmt.executeUpdate();
 
