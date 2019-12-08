@@ -3,6 +3,15 @@ package Beans;
 public class memberBean {
 
 	private String id;
+=======
+	private String id;
+	private String pwd;
+	private String email;
+	private int hp;
+	private String name;
+	private String scial_num;
+	private String isMan;
+	private String address;
 	public String getId() {
 		return id;
 	}
@@ -20,6 +29,11 @@ public class memberBean {
 	}
 	public void setName(String name) {
 		this.name = name;
+	public String getPwd() {
+		return pwd;
+	}
+	public void setPwd(String pwd) {
+		this.pwd = pwd;
 	}
 	public String getEmail() {
 		return email;
@@ -44,6 +58,24 @@ public class memberBean {
 	}
 	public void setIsman(String isman) {
 		this.isman = isman;
+=======
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getScial_num() {
+		return scial_num;
+	}
+	public void setScial_num(String scial_num) {
+		this.scial_num = scial_num;
+	}
+	public String getIsMan() {
+		return isMan;
+	}
+	public void setIsMan(String isMan) {
+		this.isMan = isMan;
 	}
 	public String getAddress() {
 		return address;
@@ -51,11 +83,4 @@ public class memberBean {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	private String passwd;
-	private String name;
-	private String email;
-	private int hp;
-	private int scial_num;
-	private String isman;
-	private String address;
 }

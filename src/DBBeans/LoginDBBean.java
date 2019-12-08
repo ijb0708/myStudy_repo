@@ -4,8 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -29,7 +27,7 @@ public class LoginDBBean {
 		
 		Context initCtx = new InitialContext();
 		Context envCtx = (Context) initCtx.lookup("java:comp/env");
-		DataSource ds = (DataSource)envCtx.lookup("jdbc/jsptest");
+		DataSource ds = (DataSource)envCtx.lookup("jdbc/test");
 		
 		return ds.getConnection();	
 	}
@@ -55,44 +53,44 @@ public class LoginDBBean {
 		ResultSet rs = null;
 		try {
 
-			// 1´Ü°è µå¶óÀÌ¹ö ·Îµå
-			// 2´Ü°è db¿¬°á => Connection con °´Ã¼ ÀúÀå
+			// 1ë‹¨ê³„ ë“œë¼ì´ë²„ ë¡œë“œ
+			// 2ë‹¨ê³„ dbì—°ê²° => Connection con ê°ì²´ ì €ì¥
 			con = getConnection();
 
-			// 3´Ü°è sql id¿¡ ÇØ´çÇÏ´Â pass °¡Á®¿À±â
-			String sql = "select pass from member where id=?";
+			// 3ë‹¨ê³„ sql idì— í•´ë‹¹í•˜ëŠ” pass ê°€ì ¸ì˜¤ê¸°
+			String sql = "select pwd, isman from member where id=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, id);
 
-			// 4´Ü°è rs=½ÇÇà°á°ú ÀúÀå
+			// 4ë‹¨ê³„ rs=ì‹¤í–‰ê²°ê³¼ ì €ì¥
 			rs = pstmt.executeQuery();
 
-			// 5´Ü°è rsÃ¹ÇàÀÌµ¿ µ¥ÀÌÅÍÀÖÀ¸¸é"¾ÆÀÌµğÀÖÀ½"
-			// ºñ¹Ğ¹øÈ£¸ÂÀ½ check=1
-			// Æ²¸®¸é check=0;
-			// ¾øÀ¸¸é ¾ÆÀÌµğ¾øÀ½ check=-1
+			// 5ë‹¨ê³„ rsì²«í–‰ì´ë™ ë°ì´í„°ìˆìœ¼ë©´"ì•„ì´ë””ìˆìŒ"
+			// ë¹„ë°€ë²ˆí˜¸ë§ìŒ check=1
+			// í‹€ë¦¬ë©´ check=0;
+			// ì—†ìœ¼ë©´ ì•„ì´ë””ì—†ìŒ check=-1
 			if (rs.next()) {
-				// ¾ÆÀÌµğÀÖÀ½
-				if (pass.equals(rs.getString("pass"))) {
-					// ·Î±×ÀÎ ¼º°ø
+				// ì•„ì´ë””ìˆìŒ
+				if (pass.equals(rs.getString("pwd"))) {
+					// ë¡œê·¸ì¸ ì„±ê³µ
 					check = 1;
-					System.out.println("daf");
+					if(rs.getString("isman").equals("o")) {
+						return 2;
+					}
+					if(rs.getString("isman").equals("x")) {
+						return 1;
+					}	
 				} else {
-					// ºñ¹Ğ¹øÈ£ Æ²¸²
-					System.out.println("11");
+					// ë¹„ë°€ë²ˆí˜¸ í‹€ë¦¼
 					check = 0;
 				}
-			} else {
-				System.out.println("f");
-				// ¾ÆÀÌµğ¾øÀ½.
-				// check=-1; //ÃÊ±â ¼³Á¤°ú °°À¸¹Ç·Î »ı·«°¡´É.
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			// °´Ã¼´İ±â
-			// °´Ã¼»ı¼º ´İ±â(±â¾ïÀå¼Ò¸¦ È¸¼öÇÏ´Â ÀÛ¾÷)
+			// ê°ì²´ë‹«ê¸°
+			// ê°ì²´ìƒì„± ë‹«ê¸°(ê¸°ì–µì¥ì†Œë¥¼ íšŒìˆ˜í•˜ëŠ” ì‘ì—…)
 			if (rs != null) {
 				try {
 					rs.close();
@@ -114,10 +112,10 @@ public class LoginDBBean {
 
 		}
 		return check;
-	}// ¾ÆÀÌµğºñ¹Ğ¹øÈ£Ã¼Å©¸Ş¼­µå³¡
+	}// ì•„ì´ë””ë¹„ë°€ë²ˆí˜¸ì²´í¬ë©”ì„œë“œë
 	
 	
-	//¾ÆÀÌµğ¿¡ ÇØ´çÇÏ´Â È¸¿øÁ¤º¸ ¾ò¾î³»±â
+	//ì•„ì´ë””ì— í•´ë‹¹í•˜ëŠ” íšŒì›ì •ë³´ ì–»ì–´ë‚´ê¸°
 	public memberBean getMember(String id) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -151,10 +149,10 @@ public class LoginDBBean {
 		        if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
 		        if (conn != null) try { conn.close(); } catch(SQLException ex) {}
 		}
-		return member;//µ¥ÀÌÅÍ ÀúÀåºó °´Ã¼ member ¸®ÅÏ
+		return member;//ë°ì´í„° ì €ì¥ë¹ˆ ê°ì²´ member ë¦¬í„´
 	}
 	
-	//È¸¿øÁ¤º¸ ¼öÁ¤ Ã³¸®
+	//íšŒì›ì •ë³´ ìˆ˜ì • ì²˜ë¦¬
 	
 	public int updateMember(memberBean member) {
 		 Connection conn = null;
@@ -179,9 +177,9 @@ public class LoginDBBean {
 	                     pstmt.setInt(3, member.getHp());
 	                     pstmt.setString(4, member.getId());
 	                     pstmt.executeUpdate();
-	                     x= 1;//È¸¿øÁ¤º¸ ¼öÁ¤ Ã³¸® ¼º°ø
+	                     x= 1;//íšŒì›ì •ë³´ ìˆ˜ì • ì²˜ë¦¬ ì„±ê³µ
 	        		}else
-						x= 0;//È¸¿øÁ¤º¸ ¼öÁ¤ Ã³¸® ½ÇÆĞ
+						x= 0;//íšŒì›ì •ë³´ ìˆ˜ì • ì²˜ë¦¬ ì‹¤íŒ¨
 	        	}
 	        	}catch(Exception ex) {
 	                ex.printStackTrace();
@@ -193,11 +191,6 @@ public class LoginDBBean {
 	            return x;
 	        
 	}
-	
-	
-	
-	
-	
 	
 }
 
