@@ -2,7 +2,7 @@ package Beans;
 
 import java.sql.Timestamp;
 
-public class MngrDataBean {
+public class itemBean {
 
 
 	private String item_code;
@@ -14,6 +14,7 @@ public class MngrDataBean {
 	private Timestamp start_time;
 	private Timestamp end_time;
 	private String dscript;
+	
 	public String getItem_code() {
 		return item_code;
 	}

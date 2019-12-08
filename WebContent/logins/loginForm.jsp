@@ -25,7 +25,6 @@
           <div class="form-group">
             <div class="form-label-group">
               <input type="password" id="inputPassword" class="form-control" name="pwd" placeholder="Password" required="required">
-              <label for="inputPassword">Password</label>
             </div>
           </div>
           <div class="form-group">

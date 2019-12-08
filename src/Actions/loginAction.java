@@ -15,7 +15,7 @@ public class loginAction implements Action{
 		request.setCharacterEncoding("utf-8");
 		
 		String id = request.getParameter("id");
-		String pass = request.getParameter("pass");
+		String pass = request.getParameter("pwd");
 		
 		LoginDBBean dbbean = LoginDBBean.getInstance();
 		int check = dbbean.idcheck(id,pass);
