@@ -15,7 +15,7 @@
       <div class="card-header">Register an Account</div>
       <div class="card-body">
       
-        <form action="Register.do">
+        <form action="Register.do" method="post">
           <div class="form-group">
             <div class="form-row">
               <div class="col-md-6">
@@ -36,7 +36,7 @@
             <div class="form-row">
               <div class="col-md-6">
                 <div class="form-label-group">
-                  <input type="email" id="email" name="email"class="form-control" placeholder="이메일" required="required" autofocus="autofocus">
+                  <input type="email" id="email" name="email" class="form-control" placeholder="이메일" required="required" autofocus="autofocus">
 
                 </div>
               </div>
@@ -59,7 +59,7 @@
               </div>
               <div class="col-md-6">
                 <div class="form-label-group">
-                  <input type="text" id="scial_num" name="scial_name" class="form-control" placeholder="주민번호" required="required">
+                  <input type="text" id="scial_num" name="scial_num" class="form-control" placeholder="주민번호" required="required">
 
                 </div>
               </div>
