@@ -30,7 +30,7 @@ body {
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="productRegister.jsp">상품등록</a>
+            <a class="nav-link" href="itemRegisterForm.do">상품등록</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">상품관리</a>
