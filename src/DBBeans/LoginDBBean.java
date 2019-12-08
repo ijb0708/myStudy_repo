@@ -9,6 +9,9 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+
+import Beans.memberBean;
+
 public class LoginDBBean {
 	private static LoginDBBean instance = new LoginDBBean();
 	
@@ -28,6 +31,20 @@ public class LoginDBBean {
 		
 		return ds.getConnection();	
 	}
+	public void insertMember(memberBean member) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			conn = getConnection();
+			String pass = member.getPasswd();
+			
+			pstmt = conn.prepareStatement("insert into member values()");
+		}catch(Exception e){
+			e.printStackTrace();
+			
+		}
+	}
 	
 	public int idcheck(String id, String pass) {
 		int check = -1;
@@ -36,26 +53,27 @@ public class LoginDBBean {
 		ResultSet rs = null;
 		try {
 
-			// 1´Ü°è µå¶óÀÌ¹ö ·Îµå
-			// 2´Ü°è db¿¬°á => Connection con °´Ã¼ ÀúÀå
+			// 1ë‹¨ê³„ ë“œë¼ì´ë²„ ë¡œë“œ
+			// 2ë‹¨ê³„ dbì—°ê²° => Connection con ê°ì²´ ì €ì¥
 			con = getConnection();
 
-			// 3´Ü°è sql id¿¡ ÇØ´çÇÏ´Â pass °¡Á®¿À±â
+			// 3ë‹¨ê³„ sql idì— í•´ë‹¹í•˜ëŠ” pass ê°€ì ¸ì˜¤ê¸°
 			String sql = "select pwd, isman from member where id=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, id);
 
-			// 4´Ü°è rs=½ÇÇà°á°ú ÀúÀå
+			// 4ë‹¨ê³„ rs=ì‹¤í–‰ê²°ê³¼ ì €ì¥
 			rs = pstmt.executeQuery();
 
-			// 5´Ü°è rsÃ¹ÇàÀÌµ¿ µ¥ÀÌÅÍÀÖÀ¸¸é"¾ÆÀÌµğÀÖÀ½"
-			// ºñ¹Ğ¹øÈ£¸ÂÀ½ check=1
-			// Æ²¸®¸é check=0;
-			// ¾øÀ¸¸é ¾ÆÀÌµğ¾øÀ½ check=-1
+			// 5ë‹¨ê³„ rsì²«í–‰ì´ë™ ë°ì´í„°ìˆìœ¼ë©´"ì•„ì´ë””ìˆìŒ"
+			// ë¹„ë°€ë²ˆí˜¸ë§ìŒ check=1
+			// í‹€ë¦¬ë©´ check=0;
+			// ì—†ìœ¼ë©´ ì•„ì´ë””ì—†ìŒ check=-1
 			if (rs.next()) {
-				// ¾ÆÀÌµğÀÖÀ½
+				// ì•„ì´ë””ìˆìŒ
 				if (pass.equals(rs.getString("pwd"))) {
-					// ·Î±×ÀÎ ¼º°ø
+					// ë¡œê·¸ì¸ ì„±ê³µ
+					check = 1;
 					if(rs.getString("isman").equals("o")) {
 						return 2;
 					}
@@ -63,7 +81,7 @@ public class LoginDBBean {
 						return 1;
 					}	
 				} else {
-					// ºñ¹Ğ¹øÈ£ Æ²¸²
+					// ë¹„ë°€ë²ˆí˜¸ í‹€ë¦¼
 					check = 0;
 				}
 			}
@@ -71,8 +89,8 @@ public class LoginDBBean {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			// °´Ã¼´İ±â
-			// °´Ã¼»ı¼º ´İ±â(±â¾ïÀå¼Ò¸¦ È¸¼öÇÏ´Â ÀÛ¾÷)
+			// ê°ì²´ë‹«ê¸°
+			// ê°ì²´ìƒì„± ë‹«ê¸°(ê¸°ì–µì¥ì†Œë¥¼ íšŒìˆ˜í•˜ëŠ” ì‘ì—…)
 			if (rs != null) {
 				try {
 					rs.close();
@@ -94,7 +112,85 @@ public class LoginDBBean {
 
 		}
 		return check;
-	}// ¾ÆÀÌµğºñ¹Ğ¹øÈ£Ã¼Å©¸Ş¼­µå³¡
+	}// ì•„ì´ë””ë¹„ë°€ë²ˆí˜¸ì²´í¬ë©”ì„œë“œë
+	
+	
+	//ì•„ì´ë””ì— í•´ë‹¹í•˜ëŠ” íšŒì›ì •ë³´ ì–»ì–´ë‚´ê¸°
+	public memberBean getMember(String id) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		memberBean member = null;
+		
+		try {
+			conn = getConnection();
+			
+			pstmt=conn.prepareStatement("select * from member where id= ?");
+			pstmt.setString(1, id);
+			
+			rs=pstmt.executeQuery();
+			
+			if(rs.next()) {
+				member = new memberBean();
+				member.setId(rs.getString("id"));
+				member.setName(rs.getString("name"));
+				member.setEmail(rs.getString("email"));
+				member.setAddress(rs.getString("address"));
+				member.setHp(rs.getInt("hp"));
+				member.setIsman(rs.getString("isman"));
+				member.setScial_num(rs.getInt("scial_num"));
 
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			  if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+		        if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+		        if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+		}
+		return member;//ë°ì´í„° ì €ì¥ë¹ˆ ê°ì²´ member ë¦¬í„´
+	}
+	
+	//íšŒì›ì •ë³´ ìˆ˜ì • ì²˜ë¦¬
+	
+	public int updateMember(memberBean member) {
+		 Connection conn = null;
+	        PreparedStatement pstmt = null;
+	        ResultSet rs= null;
+	        int x=-1;
+	        try {
+	        	conn = getConnection();
+	        	
+	        	String pass = member.getPasswd();
+	        	
+	        	pstmt = conn.prepareStatement("select pwd from member where id = ?");
+	        	pstmt.setString(1, member.getId());
+	        	rs=pstmt.executeQuery();
+	        	
+	        	if(rs.next()) {
+	        		String dbpasswd = rs.getString("pwd");
+	        		if(pass.equals(dbpasswd)) {
+	        			pstmt = conn.prepareStatement("update member set pwd = ?,address=?,hp=? where id=?");
+	        			 pstmt.setString(1, member.getPasswd());
+	                     pstmt.setString(2, member.getAddress());
+	                     pstmt.setInt(3, member.getHp());
+	                     pstmt.setString(4, member.getId());
+	                     pstmt.executeUpdate();
+	                     x= 1;//íšŒì›ì •ë³´ ìˆ˜ì • ì²˜ë¦¬ ì„±ê³µ
+	        		}else
+						x= 0;//íšŒì›ì •ë³´ ìˆ˜ì • ì²˜ë¦¬ ì‹¤íŒ¨
+	        	}
+	        	}catch(Exception ex) {
+	                ex.printStackTrace();
+	            } finally {
+	            	if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+	                if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+	                if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+	            }
+	            return x;
+	        
+	}
+	
 }
 
