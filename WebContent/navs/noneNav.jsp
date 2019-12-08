@@ -29,7 +29,7 @@ body {
 					</a></li>
 					<li class="nav-item"><a class="nav-link" href="loginForm.do">sign-in</a>
 					</li>
-					<li class="nav-item"><a class="nav-link" href="#">sign-up</a>
+					<li class="nav-item"><a class="nav-link" href="RegisterForm.do">sign-up</a>
 					</li>
 
 				</ul>

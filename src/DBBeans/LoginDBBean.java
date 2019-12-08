@@ -38,13 +38,27 @@ public class LoginDBBean {
 		
 		try {
 			conn = getConnection();
+			
 			String pass = member.getPwd();
 			
-			pstmt = conn.prepareStatement("insert into member values()");
+			pstmt = conn.prepareStatement("insert into member values (?,?,?,?,?,?)");
+		
+			pstmt.setString(1, member.getId());
+			pstmt.setString(2, member.getPwd());
+			pstmt.setString(3, member.getEmail());
+			pstmt.setInt(4, member.getHp());
+			pstmt.setString(5, member.getName());
+			pstmt.setInt(6, member.getScial_num());
+			pstmt.setString(7, member.getAddress());
+			
+			pstmt.executeUpdate();
 		}catch(Exception e){
 			e.printStackTrace();
 			
-		}
+		}finally {
+            if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+            if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+        }
 	}
 	
 	public int idcheck(String id, String pass) {
