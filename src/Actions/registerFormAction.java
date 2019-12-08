@@ -7,6 +7,7 @@ public class registerFormAction implements Action{
 	@Override
 	public String requestProcess(HttpServletRequest request, HttpServletResponse response) throws Throwable {
 		// TODO Auto-generated method stub
-		return "logins/registerForm.jsp";
+	
+		return "logins/RegisterForm.jsp";
 	}
 }

@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<link rel="stylesheet" href="/shoppingmall/css/style.css"/>
-<script src="/shoppingmall/js/jquery-1.11.0.min.js"></script>
-<script src="/shoppingmall/js/jquery.form.min.js"></script>
-<script src="/shoppingmall/mngr/productProcess/bookregist.js"></script>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+<link rel="stylesheet" href="/shoppingmall/css/style.css" />
 
+<div id="listHeader">
+	<button id="bookMain">관리자 메인으로</button>
+	<button id="bookList">목록으로</button>
 <form action="itemRegister.do" method="post" >
 <div id="RegistForm" class="box">
    <ul>
@@ -27,4 +27,3 @@
           <input type="submit" id="registBook" value="책등록">
    </ul>
 </div>
-</form>
