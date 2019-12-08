@@ -1,7 +1,5 @@
 package Actions;
 
-import java.sql.Timestamp;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -21,9 +19,9 @@ public class registerAction implements Action {
 		member.setId(request.getParameter("id"));
 		member.setPwd(request.getParameter("pwd"));
 		member.setEmail(request.getParameter("email"));
-		member.setHp(Integer.parseInt(request.getParameter("tel")));
+		member.setHp(request.getParameter("tel"));
+		member.setScial_num(request.getParameter("scial_num"));
 		member.setName(request.getParameter("name"));
-		member.setScial_num(Integer.parseInt(request.getParameter("scial_num")));
 		member.setAddress(request.getParameter("address"));
 		
 		LoginDBBean dbPro = LoginDBBean.getInstance();
@@ -31,7 +29,7 @@ public class registerAction implements Action {
 		
 		
 		
-		return "index.do";
+		return "contents/mainContent.jsp";
 		
 
 	}

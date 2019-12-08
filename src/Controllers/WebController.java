@@ -99,7 +99,6 @@ public class WebController extends HttpServlet {
 	private void requestProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		String view = null;
 		Action action=null;
-		
 		try {
 			String command = request.getRequestURI();
 	        if(command.indexOf(request.getContextPath()) == 0) 

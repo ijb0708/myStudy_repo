@@ -18,16 +18,12 @@ public class itemRegisterAction implements Action{
 		String realPath ="";
 		String savePath ="/img";
 		String encType ="utf-8";
-		int maxSize = 1*1024*1024;
+		int maxSize = 1024*1024;
 		
 		MultipartRequest img = null;
 		
 		ServletContext context = request.getSession().getServletContext();
-		
-		try {
-			img = new MultipartRequest(request, realPath, maxSize, encType, new DefaultFileRenamePolicy());
-			
-		}
+	
 		
 		itemBean item = new itemBean();
 		item.setName(request.getParameter(""));

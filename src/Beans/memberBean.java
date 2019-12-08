@@ -5,8 +5,8 @@ public class memberBean {
 	private String id;
 	private String pwd;
 	private String email;
-	private int hp;
-	private int scial_num;
+	private String hp;
+	private String scial_num;
 	private String name;
 	private String isMan;
 	private String address;
@@ -35,16 +35,16 @@ public class memberBean {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public int getHp() {
+	public String getHp() {
 		return hp;
 	}
-	public void setHp(int hp) {
-		this.hp = hp;
+	public void setHp(String string) {
+		this.hp = string;
 	}
-	public int getScial_num() {
+	public String getScial_num() {
 		return scial_num;
 	}
-	public void setScial_num(int scial_num) {
+	public void setScial_num(String scial_num) {
 		this.scial_num=scial_num;
 	}
 	public String getIsMan() {

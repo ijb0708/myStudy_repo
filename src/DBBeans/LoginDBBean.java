@@ -41,15 +41,17 @@ public class LoginDBBean {
 			
 			String pass = member.getPwd();
 			
-			pstmt = conn.prepareStatement("insert into member values (?,?,?,?,?,?)");
+			pstmt = conn.prepareStatement("insert into member values (?,?,?,?,?,?,?,?)");
 		
+			System.out.println("ab");
 			pstmt.setString(1, member.getId());
 			pstmt.setString(2, member.getPwd());
 			pstmt.setString(3, member.getEmail());
-			pstmt.setInt(4, member.getHp());
+			pstmt.setString(4, member.getHp());
 			pstmt.setString(5, member.getName());
-			pstmt.setInt(6, member.getScial_num());
-			pstmt.setString(7, member.getAddress());
+			pstmt.setString(6, member.getScial_num());
+            pstmt.setString(7, "x");
+			pstmt.setString(8, member.getAddress());
 			
 			pstmt.executeUpdate();
 		}catch(Exception e){
@@ -137,9 +139,9 @@ public class LoginDBBean {
 				member.setName(rs.getString("name"));
 				member.setEmail(rs.getString("email"));
 				member.setAddress(rs.getString("address"));
-				member.setHp(rs.getInt("hp"));
+				member.setHp(rs.getString("hp"));
 				member.setIsMan(rs.getString("isman"));
-				member.setScial_num(rs.getInt("scial_num"));
+				member.setScial_num(rs.getString("scial_num"));
 
 			}
 			
@@ -174,7 +176,7 @@ public class LoginDBBean {
 	        			pstmt = conn.prepareStatement("update member set pwd = ?,address=?,hp=? where id=?");
 	        			 pstmt.setString(1, member.getPwd());
 	                     pstmt.setString(2, member.getAddress());
-	                     pstmt.setInt(3, member.getHp());
+	                     pstmt.setString(3, member.getHp());
 	                     pstmt.setString(4, member.getId());
 	                     pstmt.executeUpdate();
 	                     x= 1;
