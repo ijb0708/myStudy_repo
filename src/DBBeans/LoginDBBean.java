@@ -4,15 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
-
-import Beans.LoginBean;
-import Beans.memberBean;
 
 public class LoginDBBean {
 	private static LoginDBBean instance = new LoginDBBean();
@@ -29,7 +24,7 @@ public class LoginDBBean {
 		
 		Context initCtx = new InitialContext();
 		Context envCtx = (Context) initCtx.lookup("java:comp/env");
-		DataSource ds = (DataSource)envCtx.lookup("jdbc/jsptest");
+		DataSource ds = (DataSource)envCtx.lookup("jdbc/test");
 		
 		return ds.getConnection();	
 	}
@@ -61,10 +56,10 @@ public class LoginDBBean {
 				// 아이디있음
 				if (pass.equals(rs.getString("pwd"))) {
 					// 로그인 성공
-					if(rs.getString("isman").equals("1")) {
+					if(rs.getString("isman").equals("o")) {
 						return 2;
 					}
-					if(rs.getString("isman").equals("0")) {
+					if(rs.getString("isman").equals("x")) {
 						return 1;
 					}	
 				} else {

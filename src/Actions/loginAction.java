@@ -16,8 +16,15 @@ public class loginAction implements Action{
 		LoginDBBean dbbean = LoginDBBean.getInstance();
 		int check = dbbean.idcheck(id,pass);
 		
-		
-		return "logins/loginForm.jsp";
+		if(check==2) {
+			request.setAttribute("isMan", true);
+			return "contents/mainContent.jsp";
+		}else if(check==1) {
+			request.setAttribute("isMan", false);
+			return "contents/mainContent.jsp";
+		}else {
+			return "logins/loginForm.jsp";
+		}
 	}
 
 }

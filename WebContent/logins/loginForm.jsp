@@ -36,9 +36,7 @@
               </label>
             </div>
           </div>
-          <button></button>
-          <a class="btn btn-primary btn-block" href="#">Login</a>
-          <input type="submit">
+          <input class="btn btn-primary btn-block" type="submit" value="Login">
         </form>
         <div class="text-center">
           <a class="d-block small mt-3" href="#">회원가입</a>
