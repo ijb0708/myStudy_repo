@@ -14,16 +14,17 @@
     <div class="card card-login mx-auto mt-5">
       <div class="card-header">로그인</div>
       <div class="card-body">
-        <form>
+      
+        <form action="login.do" method="post">
           <div class="form-group">
             <div class="form-label-group">
-              <input type="text" id="id" class="form-control" placeholder="Id" required="required" autofocus="autofocus">
+              <input type="text" id="id" class="form-control" name="id" placeholder="Id" required="required" autofocus="autofocus">
 
             </div>
           </div>
           <div class="form-group">
             <div class="form-label-group">
-              <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="required">
+              <input type="password" id="inputPassword" class="form-control" name="pwd" placeholder="Password" required="required">
               <label for="inputPassword">Password</label>
             </div>
           </div>
@@ -35,7 +36,9 @@
               </label>
             </div>
           </div>
+          <button></button>
           <a class="btn btn-primary btn-block" href="#">Login</a>
+          <input type="submit">
         </form>
         <div class="text-center">
           <a class="d-block small mt-3" href="#">회원가입</a>

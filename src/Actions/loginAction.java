@@ -17,7 +17,7 @@ public class loginAction implements Action{
 		int check = dbbean.idcheck(id,pass);
 		
 		
-		return null;
+		return "logins/loginForm.jsp";
 	}
 
 }
