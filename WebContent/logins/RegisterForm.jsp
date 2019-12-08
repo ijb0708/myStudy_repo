@@ -20,13 +20,13 @@
             <div class="form-row">
               <div class="col-md-6">
                 <div class="form-label-group">
-                  <input type="text" id="id" class="form-control" placeholder="아이디" required="required" autofocus="autofocus">
+                  <input type="text" id="id" name="id" class="form-control" placeholder="아이디" required="required" autofocus="autofocus">
 
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-label-group">
-                  <input type="password" id="pwd" class="form-control" placeholder="비밀번호" required="required">
+                  <input type="password" id="pwd" name="pwd" class="form-control" placeholder="비밀번호" required="required">
 					
                 </div>
               </div>
@@ -36,13 +36,13 @@
             <div class="form-row">
               <div class="col-md-6">
                 <div class="form-label-group">
-                  <input type="email" id="email" class="form-control" placeholder="이메일" required="required" autofocus="autofocus">
+                  <input type="email" id="email" name="email"class="form-control" placeholder="이메일" required="required" autofocus="autofocus">
 
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-label-group">
-                  <input type="tel" id="tel" class="form-control" placeholder="휴대폰 번호" required="required">
+                  <input type="tel" id="tel" name="tel" class="form-control" placeholder="휴대폰 번호" required="required">
 					
                 </div>
               </div>
@@ -52,14 +52,14 @@
             <div class="form-row">
               <div class="col-md-6">
                 <div class="form-label-group">
-                  <input type="text" id="name" class="form-control" placeholder="이름" required="required">
+                  <input type="text" id="name" name="name" class="form-control" placeholder="이름" required="required">
  		
 
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-label-group">
-                  <input type="text" id="scial_num" class="form-control" placeholder="주민번호" required="required">
+                  <input type="text" id="scial_num" name="scial_name" class="form-control" placeholder="주민번호" required="required">
 
                 </div>
               </div>
@@ -69,7 +69,7 @@
             <div class="form-row">
               <div class="col-md-6">
                 <div class="form-label-group">
-                  <input type="text" id="address" class="form-control" placeholder="주소" required="required">
+                  <input type="text" id="address" name="address" class="form-control" placeholder="주소" required="required">
  		
 
                 </div>
