@@ -11,7 +11,8 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-import Beans.LoginBean;
+
+import Beans.memberBean;
 
 public class LoginDBBean {
 	private static LoginDBBean instance = new LoginDBBean();
@@ -31,6 +32,20 @@ public class LoginDBBean {
 		DataSource ds = (DataSource)envCtx.lookup("jdbc/jsptest");
 		
 		return ds.getConnection();	
+	}
+	public void insertMember(memberBean member) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			conn = getConnection();
+			String pass = member.getPasswd();
+			
+			pstmt = conn.prepareStatement("insert into member values()");
+		}catch(Exception e){
+			e.printStackTrace();
+			
+		}
 	}
 	
 	public int idcheck(String id, String pass) {
@@ -61,11 +76,14 @@ public class LoginDBBean {
 				if (pass.equals(rs.getString("pass"))) {
 					// 로그인 성공
 					check = 1;
+					System.out.println("daf");
 				} else {
 					// 비밀번호 틀림
+					System.out.println("11");
 					check = 0;
 				}
 			} else {
+				System.out.println("f");
 				// 아이디없음.
 				// check=-1; //초기 설정과 같으므로 생략가능.
 			}
@@ -97,257 +115,89 @@ public class LoginDBBean {
 		}
 		return check;
 	}// 아이디비밀번호체크메서드끝
-
 	
-	// ---------------------------------------
-	public MemberBean getMember(String a) {
-		MemberBean mb = null;
-		Connection con = null;
+	
+	//아이디에 해당하는 회원정보 얻어내기
+	public memberBean getMember(String id) {
+		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
+		memberBean member = null;
+		
 		try {
-			// 1단계 드라이버 로드
-			// 2단계 db연결 => Connection con 객체 저장
-			con = getConnection();
-
-			// 3단계 sql id에 해당하는 pass 가져오기
-			String sql = "select * from member where id=?";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, a);
-
-			// 4단계 rs=실행결과 저장
-			rs = pstmt.executeQuery();
-
-			if (rs.next()) {
-				mb = new LoginBean();
-				mb.setId(rs.getString("id"));
-				mb.setPass(rs.getString("pass"));
-				mb.setName(rs.getString("name"));
-				mb.setReg_date(rs.getTimestamp("reg_date"));
-				mb.setAge(rs.getInt("age"));
-				mb.setGender(rs.getString("gender"));
-				mb.setEmail(rs.getString("email"));
-
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			// 객체닫기
-			// 객체생성 닫기(기억장소를 회수하는 작업)
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException ex) {
-				}
-			}
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException ex) {
-				}
-			}
-			if (con != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException ex) {
-				}
-			}
-		}
-		return mb;
-	}// getmember
-
-	// --------------------------------------------
-
-	public int updateMember(MemberBean mb) {
-		// check==1이면 수정성공. main.jsp로 이동.
-		// check==0이면 비밀번호 틀림. 뒤로 이동.
-		// check==-1이면 아이디없음. 뒤로 이동.
-		int check = -1;
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		try {
-
-			// 1단계 드라이버 로드
-			// 2단계 db연결 => Connection con 객체 저장
-			con = getConnection();
-
-			// 3단계 sql id에 해당하는 pass 가져오기
-
-			// 4단계 rs=실행결과 저장
-
-			// 5단계 rs 첫행으로 이동 데이터 있으면 "아이디있음"
-			// 비밀번호 비교 맞으면 CHECK=1
-			// //3 sql 생성 id 해당하는 name, age, gender, email 수정
-			// 4 실행
-
-			String sql = "select pass from member where id=?";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, mb.getId());
-			rs = pstmt.executeQuery();
-
-			if (rs.next()) {
-				if (!mb.getPass().equals("")) {
-					// 비밀번호 null check 코드가 길어진다.
-					// 프론트에서 null값을 제어해주는 것이 좋다.
-					// System.out.println("1" + mb.getPass());
-					// System.out.println("2" +
-					// rs.getString("pass"));//rs.next()가 없으면 값이 안나옴.
-					if (mb.getPass().equals(rs.getString("pass"))) {
-						sql = "update member set name=?,age=?,gender=?,email=? where id=?";
-						pstmt = con.prepareStatement(sql);
-						pstmt.setString(1, mb.getName());
-						pstmt.setInt(2, mb.getAge());
-						pstmt.setString(3, mb.getGender());
-						pstmt.setString(4, mb.getEmail());
-						pstmt.setString(5, mb.getId());
-
-						pstmt.executeUpdate();
-
-						check = 1;
-					}
-				} else {
-					check = 0;
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			// 객체닫기
-			// 객체생성 닫기(기억장소를 회수하는 작업)
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException ex) {
-				}
-			}
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException ex) {
-				}
-			}
-			if (con != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException ex) {
-				}
-			}
-
-		}
-		return check;
-	}// updatemember
-
-	public int deleteMember(String id, String pass) {
-		int check = 9;
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		LoginBean mb = new LoginBean();
-
-		try {
-
-			con = getConnection();
-			String sql = "select pass from member where id=?";
-			pstmt = con.prepareStatement(sql);
+			conn = getConnection();
+			
+			pstmt=conn.prepareStatement("select * from member where id= ?");
 			pstmt.setString(1, id);
-			rs = pstmt.executeQuery();
+			
+			rs=pstmt.executeQuery();
+			
+			if(rs.next()) {
+				member = new memberBean();
+				member.setId(rs.getString("id"));
+				member.setName(rs.getString("name"));
+				member.setEmail(rs.getString("email"));
+				member.setAddress(rs.getString("address"));
+				member.setHp(rs.getInt("hp"));
+				member.setIsman(rs.getString("isman"));
+				member.setScial_num(rs.getInt("scial_num"));
 
-			if (rs.next()) {
-				if (pass.equals(rs.getString("pass"))) {
-					sql = "delete from member where id=?";
-					pstmt = con.prepareStatement(sql);
-					pstmt.setString(1, id);
-					pstmt.executeUpdate();
-					check = 1;
-				} else {
-					// 비밀번호 없음
-					check = 0;
-				}
 			}
-
-		} catch (Exception e) {
+			
+		}catch(Exception e) {
 			e.printStackTrace();
-		} finally {
-			// 객체닫기
-			// 객체생성 닫기(기억장소를 회수하는 작업)
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException ex) {
-				}
-			}
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException ex) {
-				}
-			}
-			if (con != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException ex) {
-				}
-			}
+		}finally {
+			  if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+		        if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+		        if (conn != null) try { conn.close(); } catch(SQLException ex) {}
 		}
-
-		return check;
-	}// deletemember
-
-	public List getMemberList() {
-		// 배열(컬렉션) 객체 생성 - 여러개의 기억공간 사용+기억공간추가해서 사용
-		List memberList = new ArrayList();
-
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-
-		try {
-			con = getConnection();
-			String sql = "select * from member";
-			pstmt = con.prepareStatement(sql);
-			rs = pstmt.executeQuery();
-			// 배열객체 생성
-
-			while (rs.next()) {
-				LoginBean mb = new LoginBean();
-				mb.setId(rs.getString("id"));
-				mb.setPass(rs.getString("pass"));
-				mb.setName(rs.getString("name"));
-				mb.setReg_date(rs.getTimestamp("reg_date"));
-				mb.setAge(rs.getInt("age"));
-				mb.setGender(rs.getString("gender"));
-				mb.setEmail(rs.getString("email"));
-				memberList.add(mb);
-
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			// 객체닫기
-			// 객체생성 닫기(기억장소를 회수하는 작업)
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException ex) {
-				}
-			}
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException ex) {
-				}
-			}
-			if (con != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException ex) {
-				}
-			}
-		}
-		return memberList;
-	}// getmemberlist
-
+		return member;//데이터 저장빈 객체 member 리턴
+	}
+	
+	//회원정보 수정 처리
+	
+	public int updateMember(memberBean member) {
+		 Connection conn = null;
+	        PreparedStatement pstmt = null;
+	        ResultSet rs= null;
+	        int x=-1;
+	        try {
+	        	conn = getConnection();
+	        	
+	        	String pass = member.getPasswd();
+	        	
+	        	pstmt = conn.prepareStatement("select pwd from member where id = ?");
+	        	pstmt.setString(1, member.getId());
+	        	rs=pstmt.executeQuery();
+	        	
+	        	if(rs.next()) {
+	        		String dbpasswd = rs.getString("pwd");
+	        		if(pass.equals(dbpasswd)) {
+	        			pstmt = conn.prepareStatement("update member set pwd = ?,address=?,hp=? where id=?");
+	        			 pstmt.setString(1, member.getPasswd());
+	                     pstmt.setString(2, member.getAddress());
+	                     pstmt.setInt(3, member.getHp());
+	                     pstmt.setString(4, member.getId());
+	                     pstmt.executeUpdate();
+	                     x= 1;//회원정보 수정 처리 성공
+	        		}else
+						x= 0;//회원정보 수정 처리 실패
+	        	}
+	        	}catch(Exception ex) {
+	                ex.printStackTrace();
+	            } finally {
+	            	if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+	                if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+	                if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+	            }
+	            return x;
+	        
+	}
+	
+	
+	
+	
+	
+	
 }
 
