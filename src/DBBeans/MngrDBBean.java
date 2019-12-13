@@ -206,10 +206,10 @@ public class MngrDBBean {
 				item.setName(rs.getString("name"));
 				item.setThum_pic(rs.getString("thum_pic"));
 				item.setDtail_pic(rs.getString("dtail_pic"));
-				item.setPrice(rs.getInt("price"));
-				item.setRemain(rs.getInt("remain"));
-				item.setStart_time(rs.getTimestamp("start_time"));
-				item.setEnd_time(rs.getTimestamp("end_time"));
+				item.setPrice(rs.getString("price"));
+				item.setRemain(rs.getString("remain"));
+				item.setStart_time(rs.getString("start_time"));
+				item.setEnd_time(rs.getString("end_time"));
 				item.setDscript(rs.getString("dscript"));
 
 			}
@@ -251,10 +251,10 @@ public class MngrDBBean {
 			pstmt.setString(2, item.getName());
 			pstmt.setString(3, item.getThum_pic());
 			pstmt.setString(4, item.getDtail_pic());
-			pstmt.setInt(5, item.getPrice());
-			pstmt.setInt(6, item.getRemain());
-			pstmt.setTimestamp(7, item.getStart_time());
-			pstmt.setTimestamp(8, item.getEnd_time());
+			pstmt.setString(5, item.getPrice());
+			pstmt.setString(6, item.getRemain());
+			pstmt.setString(7, item.getStart_time());
+			pstmt.setString(8, item.getEnd_time());
 			pstmt.setString(9, item.getDscript());
 
 			pstmt.executeUpdate();
