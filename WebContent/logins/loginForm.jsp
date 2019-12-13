@@ -26,7 +26,7 @@
           </div>
           <div class="form-group">
             <div class="form-label-group">
-              <input type="password" id="passwd" class="form-control" name="pwd" placeholder="Password" required="required">
+              <input type="password" id="pwd" class="form-control" name="pwd" placeholder="Password" required="required">
             </div>
           </div>
           <div class="form-group">
@@ -37,7 +37,8 @@
               </label>
             </div>
           </div>
-          <input class="btn btn-primary btn-block" type="button" id="login" value="Login">
+          <p id="check"></p>
+          <input class="btn btn-primary btn-block" type="button" id="login" value="로그인하기">
         
         <div class="text-center">
           <a class="d-block small mt-3" href="#">회원가입</a>
