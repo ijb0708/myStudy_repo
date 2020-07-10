@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<h1>test</h1>
+<table>
+     <thead>
+          <tr>
+              <th width="30">idx</th>
+              <th width="100">title</th>
+              <th width="200">cont</th>
+              <th width="160">date</th>
+              <th width="30">userid</th>
+         </tr>
+    </thead>
+    <tbody>
+		<tr th:each="b : ${board}">
+			<td th:text="${b.idx}">
+			<td th:text="${b.title}">
+			<td th:text="${b.cont}">
+			<td th:text="${b.date}">
+			<td th:text="${b.userid}">
+		</tr>
+	</tbody>
+</table>

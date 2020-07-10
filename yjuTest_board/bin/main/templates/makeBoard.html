@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<h1>make board</h1>
+<body>
+	<form action="/makeBoardView/make" method="post">
+		<table>
+			<tr>
+				<td><textarea name="title" placeholder="title" rows="1" cols="55" required></textarea></td>
+			</tr>
+			<tr>
+				<td><textarea name="cont" placeholder="contents" rows="20" cols="55"required></textarea></td>
+			</tr>
+		</table>
+		<input type="submit" value="make">
+	</form>
+	<input type="button" value="exit" onClick="location.href='/';">
+</body>
+               
