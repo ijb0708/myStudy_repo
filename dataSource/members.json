@@ -1,0 +1,10 @@
+{
+	"members":[
+		{
+			"id":"test",
+			"passwd":"test",
+			"name":"jb"
+		}
+	],
+	"version":"0.0.1"
+}

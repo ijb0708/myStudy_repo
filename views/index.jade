@@ -3,3 +3,12 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
+  -var a = false
+  
+  if locals.userId
+  else
+    input(type='textbox' id='inputId')
+    input(type='password' id='inputPasswd')
+    input(type='button' id='loginButton' value='login')
+  
+  script(src='/javascripts/loginAjax.js')
