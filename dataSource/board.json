@@ -1,0 +1,10 @@
+{
+	"boards":[
+		{
+			"user":"user"
+			"contents":"contents"
+			"time":"20-12-10"
+		}
+	]
+	"version":"0.0.1"
+}
