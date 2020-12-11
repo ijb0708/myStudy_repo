@@ -9,14 +9,12 @@ router.get('/', function(req, res, next) {
   	title: 'mainPage',
   	session: req.session
   });
-});
+})
 
-router.get('/board', function(req, res, next) {
-  var data = JSON.parse.readFileSync(__base +'dataSource/members.json', 'utf-8');
-  res.render('board', {
-  	title: 'BoardPage',
-  	session: req.session,
-    // boards:data["boards"]
+router.get('/fuck', function(req, res, next) {
+  res.render('index', {
+    title: 'Page',
+    session: req.session
   });
 })
 

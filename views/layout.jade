@@ -7,12 +7,12 @@ html
   body
     if session.userName
       input(type='button' id='logOutButton' value='logOut')
+      input(type="button" id='boardButton' value='board')
     else
       input(type='textbox' id='inputId')
       input(type='password' id='inputPasswd')
       input(type='button' id='loginButton' value='login')
 
-    input(type="button" id='boardButton' value='board')
     script(src='/javascripts/loginAjax.js')
     block content
 

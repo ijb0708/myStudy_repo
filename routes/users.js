@@ -15,7 +15,6 @@ router.post('/login', function(req, res) {
 	var result= 0; 	//0:loginFail, 1:passwd loginFail, 2:loginsuccess
 
 	var memberData = JSON.parse(fs.readFileSync(__base +'dataSource/members.json', 'utf-8'));
-
 	for (member of memberData.members) {
 		if(member.userId== reqUserId){
 			if(member.passWd== reqUserWd) {
@@ -38,7 +37,6 @@ router.post('/login', function(req, res) {
 
 router.get('/logout', function(req, res) {
 	delete req.session.userName
-	res.clearCookie('sid');
 	res.json({"result":"result"});
 })
 

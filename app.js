@@ -16,13 +16,14 @@ var app = express();
 // base path setup
 global.__base = __dirname + '/';
 
+var sessionFile = new FileStore;
+
 // session setup
 app.use(session({
-  key: 'sid',
   secret: 'paper',
   resave: false,
   saveUninitialized: true,
-  store: new FileStore
+  store: sessionFile
   // cookie: { maxAge : config.cookie.maxage }
 }));
 
