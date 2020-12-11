@@ -13,19 +13,21 @@ var mainRouter = require('./routes/main');
 
 var app = express();
 
+// base path setup
 global.__base = __dirname + '/';
+
+// session setup
+app.use(session({
+  key: 'sid',
+  secret: 'paper',
+  resave: false,
+  saveUninitialized: true,
+  store: new FileStore
+  // cookie: { maxAge : config.cookie.maxage }
+}));
 
 app.use(favicon(__dirname + '/public/images/favicon.ico'));
 app.use('/static', express.static('public'));
-
-// session function
-app.use(session({
-	key:'paper',
-	secret: 'paper',
-	resave: false,
-	saveUninitialized: true,
-	store: new FileStore
-}));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

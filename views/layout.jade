@@ -5,4 +5,14 @@ html
     link(rel='stylesheet', href='/stylesheets/style.css')
     script(src='http://code.jquery.com/jquery-latest.min.js')
   body
+    if session.userName
+      input(type='button' id='logOutButton' value='logOut')
+    else
+      input(type='textbox' id='inputId')
+      input(type='password' id='inputPasswd')
+      input(type='button' id='loginButton' value='login')
+
+    input(type="button" id='boardButton' value='board')
+    script(src='/javascripts/loginAjax.js')
     block content
+
