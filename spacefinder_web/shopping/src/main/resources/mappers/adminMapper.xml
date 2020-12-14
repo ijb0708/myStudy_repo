@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shopping.mappers.adminMapper">
+   
+<!-- 카테고리 호출 -->
+<select id="category" resultType="com.shopping.domain.CategoryVO">
+ select
+  level, cateName, cateCode, cateCodeRef
+ from goods_category
+     start with cateCodeRef is null connect by prior cateCode = cateCodeRef
+</select>
+
+<!-- 상품 등록 -->
+<insert id="register">
+ insert into tbl_goods (gdsNum, gdsName, cateCode, gdsPrice, gdsStock, gdsDes,
+       gdsImg, gdsThumbImg)
+     values (tbl_goods_seq.nextval, #{gdsName}, #{cateCode}, #{gdsPrice}, #{gdsStock}, #{gdsDes},
+        #{gdsImg}, #{gdsThumbImg})
+</insert>
+
+<!-- 상품 목록 --> 
+<select id="goodslist" resultType="com.shopping.domain.GoodsVO">
+ select
+  gdsNum, gdsName, cateCode, gdsPrice, gdsStock, gdsDes, gdsImg, gdsDate
+    from tbl_goods
+        order by gdsNum desc
+</select>
+
+<!-- 상품 조회 -->
+<!-- <select id="goodsView" resultType="com.shopping.domain.GoodsVO">
+ select gdsNum, gdsName, cateCode, gdsPrice, gdsStock, gdsDes, gdsImg, gdsDate
+     from tbl_goods
+         where gdsNum = #{gdsNum}
+</select>
+-->
+
+ <!-- 상품 조회 + 카테고리 조인-->
+<select id="goodsView" resultType="com.shopping.domain.GoodsViewVO">
+ select
+     g.gdsNum, g.gdsName, g.cateCode, c.cateCodeRef, c.cateName, gdsPrice, gdsStock, gdsDes, gdsImg, gdsDate,
+     g.gdsImg, g.gdsThumbImg
+         from tbl_goods g
+             inner join goods_category c
+                 on g.cateCode = c.cateCode           
+            where g.gdsNum = #{gdsNum}
+</select>
+
+<!-- 상품 수정 -->
+<update id="goodsModify">
+ update tbl_goods
+     set
+         gdsName = #{gdsName},
+         cateCode = #{cateCode},
+         gdsPrice = #{gdsPrice},
+         gdsStock = #{gdsStock},
+         gdsDes = #{gdsDes}
+     where gdsNum = ${gdsNum}
+</update>
+
+<!-- 상품 삭제 -->
+<delete id="goodsDelete">
+ delete
+ from  tbl_goods
+ where gdsNum = #{gdsNum}
+</delete>
+
+<!-- 굿플 등록 -->
+<insert id="GP_reg">
+ insert into GoodPlace (GP_id, userId, GP_name, GP_category, GP_lat, GP_long,
+       GP_Runtime, GP_content, GP_restday, GP_parking , GP_image1, GP_image2, GP_image3, GP_image4, GP_slot, GP_basetime, GP_basepay, GP_overtime, GP_overpay, GP_onepay, GP_monthpay, GP_ThumbImg1,GP_ThumbImg2,GP_ThumbImg3,GP_ThumbImg4)
+     values (GoodPlace_seq.nextval, #{userId}, #{GP_name}, #{GP_category}, #{GP_lat}, #{GP_long},
+        #{GP_Runtime}, #{GP_content}, #{GP_restday}, #{GP_parking}, #{GP_image1}, #{GP_image2}, #{GP_image3}, #{GP_image4}, #{GP_slot}, #{GP_basetime}, #{GP_basepay}, #{GP_overtime}, #{GP_overpay}, #{GP_onepay}, #{GP_monthpay}, #{GP_ThumbImg1}, #{GP_ThumbImg2}, #{GP_ThumbImg3}, #{GP_ThumbImg4})
+</insert>
+
+<!-- 주차장 목록 --> 
+<select id="gplist" resultType="com.shopping.domain.GoodPListVO">
+ select
+ g.GP_id, g.userId, m.username, g.GP_name, g.GP_category, GP_lat, GP_long,
+       GP_Runtime, GP_content, GP_restday, GP_parking , GP_image1, GP_image2, GP_image3, GP_image4, GP_slot, GP_basetime, GP_basepay, GP_overtime, GP_overpay, GP_onepay, GP_monthpay, GP_ThumbImg1,GP_ThumbImg2,GP_ThumbImg3,GP_ThumbImg4
+    from GOODPLACE g, tbl_member m
+    where GP_REF_ID is null and g.userId = m.userId
+        order by TO_NUMBER(GP_id) DESC
+</select>
+
+<!-- 굿플 조회 -->
+<select id="gpView" resultType="com.shopping.domain.GpViewVO">
+	select
+g.GP_id, g.userId, g.GP_name, g.GP_category, c.gp_ca_name, g.GP_lat, g.GP_long,
+       g.GP_Runtime, g.GP_content, g.GP_restday, g.GP_parking , g.GP_image1, g.GP_image2, g.GP_image3, g.GP_image4, g.GP_slot, g.GP_basetime, g.GP_basepay, g.GP_overtime, g.GP_overpay, g.GP_onepay, g.GP_monthpay
+         from GOODPLACE g, gp_category c
+            where g.GP_id = #{GP_id} and g.GP_category = c.gp_ca_id
+</select>
+
+<!-- 댓글 작성 -->
+<insert id="registReply">
+ insert into GoodPlace (GP_id, userId, GP_content, GP_REF_ID)
+     values (GoodPlace_seq.nextval, #{userId}, #{GP_content}, #{GP_REF_ID})
+</insert>
+
+<!-- 댓글 리스트 -->
+<select id="replyList" resultType="com.shopping.domain.ReplyListVO">
+ select
+     g.GP_id, m.username, g.GP_content, g.GP_date
+ from GoodPlace g, tbl_member m
+     where GP_REF_ID = #{GP_id} and g.userId = m.userId
+</select>
+
+<!-- GP카테고리 리스트 -->
+<select id="cateList" resultType="com.shopping.domain.GpCategoryVO">
+select
+ gp_ca_id, gp_ca_name
+ from gp_category
+</select>
+
+<update id="GP_up">
+update GoodPlace set 
+GP_name = #{GP_name}, 
+GP_category = #{GP_category}, 
+GP_lat = #{GP_lat},
+GP_long = #{GP_long},
+GP_Runtime = #{GP_Runtime}, 
+GP_content = #{GP_content}, 
+GP_restday = #{GP_restday}, 
+GP_parking = #{GP_parking}, 
+<!-- GP_image1 = #{GP_image1}, 
+GP_image2 = #{GP_image2}, 
+GP_image3 = #{GP_image3}, 
+GP_image4 = #{GP_image4},  -->
+GP_slot = #{GP_slot}, 
+GP_basetime = #{GP_basetime}, 
+GP_basepay = #{GP_basepay}, 
+GP_overtime = #{GP_overtime}, 
+GP_overpay = #{GP_overpay}, 
+GP_onepay = #{GP_onepay}, 
+GP_monthpay = #{GP_monthpay}
+<!-- ,GP_ThumbImg1 = #{GP_ThumbImg1},
+GP_ThumbImg2 = #{GP_ThumbImg2},
+GP_ThumbImg3 = #{GP_ThumbImg3},
+GP_ThumbImg4 = #{GP_ThumbImg4} -->
+where GP_id = #{GP_id}
+
+</update>
+
+<delete id="GP_del">
+delete from GoodPlace where GP_id = #{GP_id} or GP_REF_ID = #{GP_id}
+</delete>
+</mapper>
