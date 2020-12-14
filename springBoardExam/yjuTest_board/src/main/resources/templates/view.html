@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<h1>this is board page</h1>
+<h2>hello! <span th:text="${session.logId}"></span></h2>
+<h3>
+ you are 
+ <span th:if="${session.logInfo == 'man'}">manager</span>
+ <span th:if="${session.logInfo == 'nor'}">normal</span>
+</h3>
+<input type="button" value="logout" onClick="location.href='/logout';">
+<hr>
+<h3>member page</h3>
+<table>
+     <thead>
+          <tr>
+              <th width="50">num</th>
+              <th width="100">id</th>
+              <th width="100">pw</th>
+              <th width="100">info</th>
+         </tr>
+    </thead>
+    <tbody>
+		<tr th:each="m,iterStat : ${members}">
+			<td th:text="${iterStat.count}">
+			<td th:text="${m.userid}">
+			<td th:text="${m.userpw}">
+			<td th:text="${m.info}">
+		</tr>
+	</tbody>
+</table>
+<hr>
+<h3>board page</h3>
+<table>
+     <thead>
+          <tr>
+              <th width="50">idx</th>
+              <th width="100">title</th>
+              <th width="180">date</th>
+              <th width="100">userid</th>
+              <th width="100">man_hit</th>
+              <th width="100">nor_hit</th>
+              <th width="100">man_like</th>
+              <th width="100">nor_like</th>
+         </tr>
+    </thead>
+    <tbody>
+		<tr th:each="b,iterStat : ${boards}">
+			<td th:text="${iterStat.count}">
+			<td><a th:href="@{'/boardDetail/'+${b.idx}}"><span th:text="${b.title}"></span></a></td>
+			<td th:text="${b.put_date}">
+			<td th:text="${b.userid}">
+			<td th:text="${b.man_hit}">
+			<td th:text="${b.nor_hit}">
+			<td th:text="${b.man_like}">
+			<td th:text="${b.nor_like}">
+		</tr>
+	</tbody>
+</table>
+<hr>
+<input type="button" value="makepost" onClick="location.href='/makeBoardView';">
+
+

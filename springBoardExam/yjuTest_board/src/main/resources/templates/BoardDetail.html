@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<table>
+	<tr>
+		<td>title: <span th:text="${board.title}"></span></td>
+	</tr>
+	<tr>
+		<td>contents :</td>
+	</tr>
+	<tr>
+		<td><span th:text="${board.cont}"></span></td>
+	</tr>
+	<tr>
+		<td>date: <span th:text="${board.put_date}"></span></td>
+	</tr>
+	<tr>
+		<td>userid: <span th:text="${board.userid}"></span></td>
+	</tr>
+	<tr>
+		<td>man_hit: <span th:text="${board.man_hit}"></span></td>
+	</tr>
+	<tr>
+		<td>nor_hit: <span th:text="${board.nor_hit}"></span></td>
+	</tr>
+	<tr>
+		<td>man_like: <span th:text="${board.man_like}"></span></td>
+	</tr>
+	<tr>
+		<td>nor_like: <span th:text="${board.nor_like}"></span></td>
+	</tr>
+</table>
+<a th:href="@{'/like/'+${board.idx}}">like!!</a>
+<input type="button" value="exit" onClick="location.href='/view';">

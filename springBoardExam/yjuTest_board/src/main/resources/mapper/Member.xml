@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yju.bbs.mapper.MemberMapper">
+
+	<select id="MemberList" resultType="com.yju.bbs.dto.Member">
+		select userid, userpw, info 
+		from members
+	</select>
+	
+	<select id="MemberView" resultType="com.yju.bbs.dto.Member" parameterType="String">
+		select userid, userpw, info 
+		from members where USERID = #{userid}
+	</select>
+	
+	<insert id="MemberInsert" parameterType="com.yju.bbs.dto.Member">
+		insert into members values (
+		#{userid},
+		#{userpw},
+		#{info}
+		)
+	</insert>
+	
+	<delete id="MemberDelete" parameterType="String">
+		delete MEMBERS 
+		where USERID = #{userid}
+	</delete>
+	
+</mapper>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yju.bbs.mapper.BoardMapper">
+
+	<select id="BoardList" resultType="com.yju.bbs.dto.Board">
+		select idx, title, cont, userid, put_date, man_hit, nor_hit, man_like, nor_like 
+		from BOARD 
+		order by idx desc
+	</select>
+	
+	<select id="BoardView" resultType="com.yju.bbs.dto.Board" parameterType="int">
+		select idx, title, cont, userid, put_date, man_hit, nor_hit, man_like, nor_like 
+		from BOARD
+		where IDX = #{idx}
+	</select>
+	
+	<insert id="BoardInsert" parameterType="com.yju.bbs.dto.Board">
+		insert into BOARD(idx, title, cont, userid)
+		values (board_seq.nextval, #{title}, #{cont}, #{userid})
+	</insert>
+	
+	<delete id="BoardDelete" parameterType="int">
+		delete BOARD
+		where idx = #{idx}
+	</delete>
+	
+	<update id="BoardUpdate" parameterType="com.yju.bbs.dto.Board">
+		update BOARD set MAN_HIT=#{man_hit}, MAN_LIKE=#{man_like}, NOR_HIT=#{nor_hit}, NOR_LIKE=#{nor_like}
+		where idx = #{idx}
+	</update>
+	
+</mapper>
