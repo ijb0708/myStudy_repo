@@ -1,0 +1,15 @@
+{
+	"members":[
+		{
+			"userId":"test1",
+			"passWd":"test1",
+			"name":"jb1"
+		},
+		{
+			"userId":"test2",
+			"passWd":"test2",
+			"name":"jb2"
+		}
+	],
+	"version":"0.0.2"
+}

@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  p  talk here
+  each item in boards
+    p #{item.user} #{item.contents} #{item.time}
+  p #{session.userName}  :  
+    input(type='text')
+    input(type='button' value='make!')
+
+
+
